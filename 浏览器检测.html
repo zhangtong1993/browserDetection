@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浏览器检测</title>
+</head>
+<body>
+
+</body>
+<script>
+    //获取浏览器和信息
+    function getBrowserInfo() {
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var re = /(trident|msie|firefox|chrome|version).*?([\d.]+)/;
+        var m = ua.match(re);
+        if (!m) m = ["version/1.0.0", "version", "1.0.0"];
+        Sys.explorer = m[1].replace(/version/, "'safari");
+        //判断是否是IE11
+        if (Sys.explorer == "trident") {
+            Sys.explorer = "IE11"
+            Sys.explorerVersion = "11.0";
+            console.log("IE11",Sys);
+        }
+        else if (Sys.explorer == "msie") {
+            //IE
+            Sys.explorer = "IE"
+            Sys.explorerVersion = m[2];
+            console.log("IE",Sys);
+        }
+        else {
+            //非IE
+            console.log("不是IE",Sys,ua);
+            Sys.explorerVersion = m[2];
+            //QQ浏览器
+            if(ua.match(/qqbrowser/i)=="qqbrowser"){
+                var str=ua;
+                var pos = str.indexOf('qqbrowser/');
+                var result = str.substring(pos+1);
+                var result1=result.indexOf('/');
+                var result2=result.substring(result1+1);
+                Sys.explorer = "qqbrowser"
+                Sys.explorerVersion = result2;
+                console.log("QQ浏览器",Sys);
+            }
+            //Mac上QQ浏览器
+            else if(ua.match(/qqbrowserlite/i)=="qqbrowserlite"){
+                var str=ua;
+                var pos = str.indexOf('qqbrowserlite/');
+                var result = str.substring(pos+1);
+                var result1=result.indexOf('/');
+                var result2=result.substring(result1+1);
+                Sys.explorer = "qqbrowserlite"
+                Sys.explorerVersion = result2;
+                console.log("Mac上QQ浏览器",Sys);
+            }
+            //火狐浏览器
+            else if(ua.match(/firefox/i)=="firefox"){
+                var str=ua;
+                var pos = str.indexOf('firefox/');
+                var result = str.substring(pos+1);
+                var result1=result.indexOf('/');
+                var result2=result.substring(result1+1);
+                Sys.explorer = "firefox"
+                Sys.explorerVersion = result2;
+                console.log("firefox浏览器",Sys);
+            }
+            //百度浏览器
+            else if(ua.match(/bidubrowser/i)=="bidubrowser"){
+                var str=ua;
+                var pos = str.indexOf('bidubrowser/');
+                var result = str.substring(pos+1);
+                var result1=result.indexOf('/');
+                var result2=result.substring(result1+1);
+                Sys.explorer = "bidubrowser"
+                Sys.explorerVersion = result2;
+                console.log("百度浏览器",Sys);
+            }
+            //2345浏览器
+            else if(ua.match(/2345explorer/i)=="2345explorer"){
+                var str=ua;
+                var pos = str.indexOf('2345explorer/');
+                var result = str.substring(pos+1);
+                var result1=result.indexOf('/');
+                var result2=result.substring(result1+1);
+                Sys.explorer = "2345explorer"
+                Sys.explorerVersion = result2;
+                console.log("2345浏览器",Sys);
+            }
+            //猎豹浏览器
+            else if(ua.match(/lbbrowser/i)=="lbbrowser"){
+                var str=ua;
+                var pos = str.indexOf('lbbrowser/');
+                var result = str.substring(pos+1);
+                Sys.explorer = "lbbrowser"
+                console("猎豹浏览器",Sys);
+            }
+            //搜狗高速浏览器
+            else if(ua.match(/metasr/i)=="metasr"){
+                Sys.explorer = "metasr"
+                console.log("搜狗高速浏览器",Sys);
+            }
+            //欧朋浏览器
+            else if(ua.match(/opr/i)=="opr"){
+                var str=ua;
+                var pos = str.indexOf('opr/');
+                var result = str.substring(pos+1);
+                var result1=result.indexOf('/');
+                var result2=result.substring(result1+1);
+                Sys.explorer = "opr"
+                Sys.explorerVersion = result2;
+                console.log("欧朋浏览器",Sys);
+            }
+            //UC浏览器
+            else if(ua.match(/ubrowser/i)=="ubrowser"){
+                var str=ua;
+                var pos = str.indexOf('ubrowser/');
+                var result = str.substring(pos+1);
+                var result1=result.indexOf('/');
+                var result2=result.substring(result1+1);
+                Sys.explorer = "ubrowser"
+                Sys.explorerVersion = result2;
+                console.log("UC浏览器",Sys);
+            }
+            else if(Sys.explorer == "chrome"){
+                if(window.clientInformation.languages){
+                    if(window.clientInformation.languages.length>2){
+                        Sys.explorer = "chrome";
+                        console.log("chrome",Sys);
+                    }
+                    if(window.clientInformation.languages.length==2){
+                        var _track = 'track' in document.createElement('track');
+                        var webstoreKeysLength = window.chrome && window.chrome.webstore ? Object.keys(window.chrome.webstore).length : 0;
+
+                        if (_track) {
+                            webstoreKeysLength > 1 ? '360ee' : '360se';
+                            console.log("当前是360极速浏览器",Sys);
+                        }
+                    }
+
+                }
+
+
+            }
+            //safari浏览器
+            else if(ua.match(/mac/i)=="mac"){
+                if(ua.match(/safari/i)=="safari"){
+                    Sys.explorer = "safari"
+                    console.log("safari",Sys);
+                    console.log(JSON.stringify(Sys));
+                }
+            }
+        }
+
+        return Sys;
+    }
+    getBrowserInfo();
+
+</script>
+</html>
